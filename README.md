@@ -1,5 +1,7 @@
 # VideoScribe
 
+![VideoScribe main window](docs/screenshot.png)
+
 A native macOS app that turns a local video into a single self-contained HTML
 document: timestamped transcript with screenshots inserted inline at the
 moments they occurred.
