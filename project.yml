@@ -1,0 +1,61 @@
+name: VideoScribe
+options:
+  bundleIdPrefix: app.videoscribe
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+
+settings:
+  base:
+    SWIFT_VERSION: "5.10"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    PRODUCT_BUNDLE_IDENTIFIER: app.videoscribe.VideoScribe
+    GENERATE_INFOPLIST_FILE: NO
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: "-"
+    ENABLE_HARDENED_RUNTIME: YES
+    DEAD_CODE_STRIPPING: YES
+    SWIFT_STRICT_CONCURRENCY: minimal
+
+packages:
+  ArgmaxOSS:
+    url: https://github.com/argmaxinc/argmax-oss-swift
+    from: "1.0.0"
+
+targets:
+  VideoScribe:
+    type: application
+    platform: macOS
+    sources:
+      - path: VideoScribe
+        excludes:
+          - "Resources/Info.plist"
+          - "Resources/VideoScribe.entitlements"
+    resources: []
+    info:
+      path: VideoScribe/Resources/Info.plist
+      properties:
+        CFBundleName: VideoScribe
+        CFBundleDisplayName: VideoScribe
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+        LSMinimumSystemVersion: "14.0"
+        NSHighResolutionCapable: YES
+        NSPrincipalClass: NSApplication
+        NSSupportsAutomaticTermination: YES
+        NSSupportsSuddenTermination: NO
+        LSApplicationCategoryType: public.app-category.productivity
+    entitlements:
+      path: VideoScribe/Resources/VideoScribe.entitlements
+      properties:
+        com.apple.security.app-sandbox: false
+        com.apple.security.network.client: true
+        com.apple.security.files.user-selected.read-write: true
+    dependencies:
+      - package: ArgmaxOSS
+        product: WhisperKit
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: VideoScribe/Resources/VideoScribe.entitlements
+        INFOPLIST_FILE: VideoScribe/Resources/Info.plist
